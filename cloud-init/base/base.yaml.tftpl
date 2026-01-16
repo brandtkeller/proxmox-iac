@@ -1,0 +1,29 @@
+#cloud-config
+
+package_update: true
+package_upgrade: false
+
+timezone: UTC
+
+users:
+  - default
+  - name: ubuntu
+    groups: [sudo]
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+ssh_pwauth: false
+disable_root: true
+
+bootcmd:
+  - systemctl enable qemu-guest-agent
+  - systemctl start qemu-guest-agent
+
+write_files:
+  - path: /etc/motd
+    permissions: "0644"
+    content: |
+      Managed by OpenTofu
+      Ubuntu baseline initialization complete.
+
+final_message: "cloud-init base profile applied"

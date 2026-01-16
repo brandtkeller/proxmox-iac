@@ -1,0 +1,12 @@
+#cloud-config
+
+write_files:
+  - path: /etc/rancher/k3s/config.yaml
+    permissions: "0600"
+    content: |
+      write-kubeconfig-mode: "0644"
+
+runcmd:
+  - curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION=${k8s_version} sh -
+
+final_message: "k3s installed"
