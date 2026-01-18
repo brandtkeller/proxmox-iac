@@ -27,7 +27,13 @@ Template promotion is handled by introducing a new template and updating configu
 Initialize from an environment directory:
 
 ```bash
+export TF_VAR_proxmox_endpoint="https://192.168.0.21:8006/api2/json"
+export TF_VAR_proxmox_api_token="opentofu@pam!infra=<TOKEN_SECRET>"
+export TF_VAR_proxmox_insecure=true
+
 cd environments/dev
 tofu init
 tofu plan
 tofu apply
+
+```

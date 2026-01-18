@@ -1,14 +1,28 @@
 terraform {
   backend "local" {}
+
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "~> 0.93"
+    }
+  }
 }
 
 locals {
+
+  base_tags = [
+    "managed-by=opentofu",
+    "os=ubuntu",
+    "template=9000"
+  ]
+  
   vm_name = "dev-node-1"
 
   cloudinit_userdata = join("\n", compact([
-    templatefile("${path.root}/cloud-init/base/base.yaml.tftpl", {}),
+    templatefile("${path.root}/../../cloud-init/base/base.yaml.tftpl", {}),
     var.k8s.enabled ? templatefile(
-      "${path.root}/cloud-init/kubernetes/${var.k8s.distro}.yaml.tftpl",
+      "${path.root}/../../cloud-init/kubernetes/${var.k8s.distro}.yaml.tftpl",
       {
         k8s_version = var.k8s.version
       }
@@ -26,6 +40,10 @@ locals {
 
 module "dev_vm" {
   source = "../../modules/proxmox-vm"
+
+  providers = {
+    proxmox = proxmox
+  }
 
   name        = local.vm_name
   node_name  = var.node_name

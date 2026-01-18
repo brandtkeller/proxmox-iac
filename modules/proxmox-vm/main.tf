@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    proxmox = {
+      source  = "bpg/proxmox"
+      version = "~> 0.93"
+    }
+  }
+}
+
 resource "proxmox_virtual_environment_vm" "this" {
   name      = var.name
   node_name = var.node_name
@@ -37,7 +46,7 @@ resource "proxmox_virtual_environment_vm" "this" {
 
   lifecycle {
     ignore_changes = [
-      initialization[0].user_data
+      initialization
     ]
-  }
+}
 }
