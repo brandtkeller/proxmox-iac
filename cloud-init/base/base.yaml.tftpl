@@ -3,6 +3,9 @@
 package_update: true
 package_upgrade: false
 
+packages:
+  - qemu-guest-agent
+
 timezone: UTC
 
 users:
@@ -15,7 +18,7 @@ users:
 ssh_pwauth: false
 disable_root: true
 
-bootcmd:
+runcmd:
   - systemctl enable qemu-guest-agent
   - systemctl start qemu-guest-agent
 

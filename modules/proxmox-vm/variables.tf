@@ -32,7 +32,12 @@ variable "disk_gb" {
 }
 
 variable "datastore_id" {
-  description = "Proxmox datastore ID (e.g. local-lvm, local-btrfs)"
+  description = "Proxmox datastore ID for VM disks (e.g. local-lvm, local-btrfs)"
+  type        = string
+}
+
+variable "snippets_datastore_id" {
+  description = "Proxmox datastore ID for cloud-init snippets (must have snippets content type enabled)"
   type        = string
 }
 

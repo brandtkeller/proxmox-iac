@@ -1,7 +1,8 @@
 node_name    = "pve"
 template_id = 9000
 
-datastore_id = "local-btrfs"
+datastore_id          = "local-btrfs"
+snippets_datastore_id = "local"
 
 cores     = 4
 memory_mb = 8192
